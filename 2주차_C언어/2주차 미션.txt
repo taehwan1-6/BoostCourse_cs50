@@ -1,0 +1,80 @@
+<cs50 - 2주차 과제 >
+ㅁ 문제1
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+    int stock = 5;
+    int order = 3;
+    int price = 10000;
+    int VAT = price / 10;
+
+    printf("주문건수 : %d건\n", order);
+    printf("기존 재고량 : %d개\n", stock);
+    printf("남은 재고량 : %d개\n", stock - order);
+    printf("매출액(부가세포함) : %d원\n", (price + VAT) * order);
+}
+
+ㅁ 문제2
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+    long target = get_long("목표금액을 입력하세요: ");
+    long interest = ((target / 1000) * 12 );
+    long sum = target + interest;
+    printf("원금과 이자의 합계: %ld\n", sum);
+
+    /*
+    printf("안녕하세요! 인터넷은행 예금 계산 시스템입니다.\n");
+    int answer = get_int("예금 목표금액을 입력하세요.\n");
+    printf("1년 만기시 원금과 이자의 합계는 %.0f원입니다.\n", answer * (1+0.012));
+    */
+
+}
+
+
+ㅁ 문제3
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+void menu(string day);
+
+int main(void)
+{
+    string day = get_string("요일을 입력하세요: ");
+    menu(day);
+}
+
+void menu(string day)
+{
+    //string day = get_string("요일을 입력하세요: ");
+    if(strcmp(day,"월요일") == 0){
+        printf("%s: 청국장\n", day);
+    }
+    else if(strcmp(day,"화요일") == 0){
+        printf("%s: 비빔밥\n", day);
+    }
+    else if(strcmp(day,"수요일") == 0){
+        printf("%s: 된장찌개\n", day);
+    }
+    else if(strcmp(day,"목요일") == 0){
+        printf("%s: 칼국수\n", day);
+    }
+    else if(strcmp(day,"금요일") == 0){
+        printf("%s: 냉면\n", day);
+    }
+    else if(strcmp(day,"토요일") == 0){
+        printf("%s: 소불고기\n", day);
+    }
+    else if(strcmp(day,"일요일") == 0){
+        printf("%s: 오삼불고기\n", day);
+    }
+    else{
+        printf("요일이 아닙니다. 요일을 입력하세요.\n");
+        main();
+    }
+//계속 무한으로 돌아서 종료되는 예외도 처리 해줘야 한다. 굳이 안해줘도 되네 동작 잘 한다.
+}
