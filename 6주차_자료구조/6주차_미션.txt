@@ -1,0 +1,169 @@
+//6주차
+//미션 1 : 배열로 Stack 만들기
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct stack
+{
+    int top;
+    int capacity;
+    int *array;
+} Stack;
+
+Stack *createStack(int capacity);
+int isFull(Stack *stack);
+int isEmpty(Stack *stack);
+void push(Stack *stack, int item);
+int pop(Stack *stack);
+int peek(Stack *stack);
+
+int main(void)
+{
+    Stack *stack = createStack(100);
+
+    push(stack, 10);
+    push(stack, 20);
+    push(stack, 30);
+    push(stack, 40);
+
+    printf("%d pop from stack\n", pop(stack));
+    printf("%d pop from stack\n", pop(stack));
+
+    push(stack,50);
+    printf("%d pop from stack\n", pop(stack));
+    printf("%d pop from stack\n", pop(stack));
+    printf("%d pop from stack\n", pop(stack));
+    printf("%d pop from stack\n", pop(stack));
+    return 0;
+}
+
+Stack *createStack(int capacity)
+{
+    Stack *stack = (Stack*)malloc(sizeof(Stack));
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (int*)malloc(stack->capacity * sizeof(int));
+    return stack;
+}
+
+int isFull(Stack *stack)
+{
+    return stack->top == stack->capacity-1;
+}
+
+int isEmpty(Stack *stack)
+{
+    return stack->top == -1;
+}
+
+void push(Stack *stack, int item)
+{
+    if(isFull(stack)) return;
+
+    stack->array[++stack->top] = item;
+    printf("%d pushed to stack\n", item);
+}
+
+int pop(Stack *stack)
+{
+    if(isEmpty(stack)) return -9999;
+
+    int temp = stack->array[stack->top];
+
+    --stack->top;
+
+    return temp;
+}
+
+int peek(Stack *stack)
+{
+    return stack->array[stack->top];
+}
+
+============================================================
+
+//6week
+//mission03 : 배열로 Queue 만들어보기!
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct queue
+{
+    int front;
+    int rear;
+    int size;
+    int capacity;
+    int *array;
+} Queue;
+
+Queue *createQueue(int capacity);
+int isFull(Queue *queue);
+int isEmpty(Queue *queue);
+void enqueue(Queue *queue, int item);
+int dequeue(Queue *queue);
+
+int main(void)
+{
+    Queue *queue = createQueue(1000);
+
+    enqueue(queue, 10);
+    enqueue(queue, 20);
+    enqueue(queue, 30);
+    enqueue(queue, 40);
+
+    printf("%d dequeued from queue\n", dequeue(queue));
+    printf("%d dequeued from queue\n\n", dequeue(queue));
+
+    enqueue(queue, 50);
+    enqueue(queue, 60);
+
+    printf("%d dequeued from queue\n", dequeue(queue));
+
+    printf("Front item is %d\n", queue->array[queue->front+1]);
+    printf("Rear item is %d\n", queue->array[queue->size]);
+    return 0;
+}
+
+Queue *createQueue(int capacity)
+{
+    Queue *queue = (Queue*)malloc(sizeof(Queue));
+    queue->capacity = capacity;
+    queue->front = 0;
+    queue->size = 0;
+    queue->rear = capacity-1;
+    queue->array = (int*)malloc(sizeof(int) * queue->capacity);
+    return queue;
+}
+
+int isFull(Queue *queue)
+{
+    return (queue->size == queue->capacity);
+}
+
+int isEmpty(Queue *queue)
+{
+    return (queue->size == 0);
+}
+
+void enqueue(Queue *queue, int item)
+{
+    if(isFull(queue)) return;
+
+    //왜 ++queue->size인지 모르겠다 queue->size가 아니라
+    queue->array[++queue->size] = item;
+
+    /*printf("[%d]\t", queue->array[queue->size]);*/
+
+    printf("%d enqueued to queue\n", item);
+}
+
+int dequeue(Queue *queue)
+{
+    if(isEmpty(queue)) return -9999;
+
+    int item = 0;
+
+    item = queue->array[++queue->front];
+
+    return item;
+}
